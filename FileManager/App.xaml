@@ -1,0 +1,72 @@
+﻿<Application x:Class="FileManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:vm="clr-namespace:FileManager.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FileManager"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+
+        <Style TargetType="Button">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="1"/>
+        </Style>
+
+        <Style x:Key="DataTemlateTextBase" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="3,3,3,3"/>
+        </Style>
+
+        <Style x:Key="DataTemlateName" TargetType="TextBlock" BasedOn="{StaticResource DataTemlateTextBase}">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="DataTemlateOther" TargetType="TextBlock" BasedOn="{StaticResource DataTemlateTextBase}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type vm:DirectoryViewModel}" ItemsSource="{Binding DirectoryItems}">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="img" Source="/Images/folder-closed.png" Width="16" Height="16" Margin="3,3,3,3"/>
+                <Grid Width="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="250"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="50"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="50"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<GridSplitter Background="Black" Width="5"></GridSplitter>-->
+                    <TextBlock Text="{Binding Name}" Grid.Column="0" Style="{StaticResource DataTemlateName}" />
+                    <TextBlock Text="{Binding Size, StringFormat={}{0} GB}" Grid.Column="1" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding FilesCount}" Grid.Column="2" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding FoldersCount}" Grid.Column="3" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding LastWriteTime, StringFormat=dd.MM.yyyy}" Grid.Column="4" Style="{StaticResource DataTemlateOther}"/>
+
+                </Grid>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <DataTemplate DataType="{x:Type vm:FileViewModel}">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="img" Source="/Images/file.png" Width="16" Height="16" Margin="3,3,3,3"/>
+                <Grid Width="Auto">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="250"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="100"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="50"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto" MinWidth="50"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Name}" Grid.Column="0" Style="{StaticResource DataTemlateName}"/>
+                    <TextBlock Text="{Binding Size, StringFormat={}{0} MB}" Grid.Column="1" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding FilesCount}" Grid.Column="2" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding FoldersCount}" Grid.Column="3" Style="{StaticResource DataTemlateOther}"/>
+                    <TextBlock Text="{Binding LastWriteTime, StringFormat=dd.MM.yyyy}" Grid.Column="4" Style="{StaticResource DataTemlateOther}"/>
+
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Application.Resources>
+</Application>
